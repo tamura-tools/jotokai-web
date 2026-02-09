@@ -1,0 +1,58 @@
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { formatEventDate, formatTime } from "@/lib/format"
+import type { MergedEvent } from "@/types/event"
+
+export function EventCard({ event }: { event: MergedEvent }) {
+  return (
+    <Card className="hover:shadow-md transition-shadow">
+      <CardHeader className="pb-2">
+        <div className="flex items-center justify-between">
+          <span className="text-lg font-semibold">
+            {formatEventDate(event.event_date, event.day_of_week)}
+          </span>
+          <div className="flex gap-1">
+            {event.animal_types?.map((type) => (
+              <Badge
+                key={type}
+                variant={type === "犬" ? "default" : "secondary"}
+              >
+                {type}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-1 text-sm">
+        <p className="font-medium">{event.org_name}</p>
+        <p className="text-muted-foreground">
+          {event.prefecture} {event.address}
+        </p>
+        {event.venue_name && (
+          <p className="text-muted-foreground">{event.venue_name}</p>
+        )}
+        {event.start_time && (
+          <p>
+            {formatTime(event.start_time)}
+            {event.end_time ? ` ~ ${formatTime(event.end_time)}` : ""}
+          </p>
+        )}
+        <div className="flex items-center justify-between pt-1">
+          <span className="text-xs text-muted-foreground">
+            情報元: {event.sources.join(", ")}
+          </span>
+          {event.source_urls?.[0] && (
+            <a
+              href={event.source_urls[0]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-blue-600 hover:underline"
+            >
+              詳細を見る
+            </a>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
