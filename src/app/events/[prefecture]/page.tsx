@@ -5,7 +5,7 @@ import type { MergedEvent } from "@/types/event"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-export const revalidate = 3600
+export const revalidate = 600
 
 type Props = {
   params: Promise<{ prefecture: string }>

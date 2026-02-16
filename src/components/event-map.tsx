@@ -56,11 +56,13 @@ export function EventMap({ events }: { events: MergedEvent[] }) {
               <p className="font-bold">{event.org_name}</p>
               <p>{formatEventDate(event.event_date, event.day_of_week)}</p>
               {event.address && <p>{event.address}</p>}
-              {event.start_time && (
+              {event.start_time ? (
                 <p>
                   {formatTime(event.start_time)}
                   {event.end_time ? ` ~ ${formatTime(event.end_time)}` : ""}
                 </p>
+              ) : (
+                <p className="text-gray-500">時間未定</p>
               )}
               {event.source_urls?.[0] && (
                 <a

@@ -12,30 +12,37 @@ export function EventCard({ event }: { event: MergedEvent }) {
             {formatEventDate(event.event_date, event.day_of_week)}
           </span>
           <div className="flex gap-1">
-            {event.animal_types?.map((type) => (
-              <Badge
-                key={type}
-                variant={type === "犬" ? "default" : "secondary"}
-              >
-                {type}
-              </Badge>
-            ))}
+            {event.animal_types && event.animal_types.length > 0 ? (
+              event.animal_types.map((type) => (
+                <Badge
+                  key={type}
+                  variant={type === "犬" ? "default" : "secondary"}
+                >
+                  {type}
+                </Badge>
+              ))
+            ) : (
+              <Badge variant="outline">犬猫</Badge>
+            )}
           </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-1 text-sm">
         <p className="font-medium">{event.org_name}</p>
         <p className="text-muted-foreground">
-          {event.prefecture} {event.address}
+          {event.prefecture}
+          {event.address ? ` ${event.address}` : ""}
         </p>
         {event.venue_name && (
           <p className="text-muted-foreground">{event.venue_name}</p>
         )}
-        {event.start_time && (
+        {event.start_time ? (
           <p>
             {formatTime(event.start_time)}
             {event.end_time ? ` ~ ${formatTime(event.end_time)}` : ""}
           </p>
+        ) : (
+          <p className="text-muted-foreground text-xs">時間は詳細ページでご確認ください</p>
         )}
         <div className="flex items-center justify-between pt-1">
           <span className="text-xs text-muted-foreground">

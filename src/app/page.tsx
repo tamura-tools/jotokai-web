@@ -2,7 +2,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server"
 import { EventFilters } from "@/components/event-filters"
 import type { MergedEvent } from "@/types/event"
 
-export const revalidate = 3600
+export const revalidate = 600
 
 async function getEvents(): Promise<MergedEvent[]> {
   const supabase = createServerSupabaseClient()
