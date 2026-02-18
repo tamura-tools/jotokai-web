@@ -71,7 +71,16 @@ export function EventTable({ events }: { events: MergedEvent[] }) {
         </thead>
         <tbody>
           {events.map((event) => {
-            const venue = event.venue_name ?? event.address ?? "-"
+            const rawAddress = event.address
+              ? event.address.startsWith(event.prefecture)
+                ? event.address.slice(event.prefecture.length).trimStart()
+                : event.address
+              : null
+            const venue = event.venue_name
+              ? rawAddress
+                ? `${event.venue_name}　${rawAddress}`
+                : event.venue_name
+              : rawAddress ?? "-"
             const timeStr =
               event.start_time && event.end_time
                 ? `${formatTime(event.start_time)}〜${formatTime(event.end_time)}`
