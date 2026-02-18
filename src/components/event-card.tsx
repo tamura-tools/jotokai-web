@@ -41,8 +41,17 @@ export function EventCard({ event }: { event: MergedEvent }) {
             {formatTime(event.start_time)}
             {event.end_time ? ` ~ ${formatTime(event.end_time)}` : ""}
           </p>
+        ) : event.source_urls?.[0] ? (
+          <a
+            href={event.source_urls[0]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-blue-600 hover:underline"
+          >
+            詳細はサイトでご確認ください↗
+          </a>
         ) : (
-          <p className="text-muted-foreground text-xs">時間は詳細ページでご確認ください</p>
+          <p className="text-muted-foreground text-xs">開催時間は未定です</p>
         )}
         <div className="flex items-center justify-between pt-1">
           <span className="text-xs text-muted-foreground">

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { EventList } from "./event-list"
+import { EventTable } from "./event-table"
 import { PrefectureSelect } from "./prefecture-select"
 import { AnimalTypeFilter } from "./animal-type-filter"
 import { ViewToggle } from "./view-toggle"
@@ -18,7 +19,7 @@ const EventMap = dynamic(() => import("./event-map").then((m) => m.EventMap), {
 export function EventFilters({ events }: { events: MergedEvent[] }) {
   const [prefecture, setPrefecture] = useState<string>("all")
   const [animalType, setAnimalType] = useState<string>("all")
-  const [view, setView] = useState<"list" | "map">("list")
+  const [view, setView] = useState<"list" | "map" | "table">("list")
 
   const filtered = useMemo(() => {
     return events.filter((e) => {
@@ -51,6 +52,8 @@ export function EventFilters({ events }: { events: MergedEvent[] }) {
 
       {view === "list" ? (
         <EventList events={filtered} />
+      ) : view === "table" ? (
+        <EventTable events={filtered} />
       ) : (
         <EventMap events={filtered} />
       )}

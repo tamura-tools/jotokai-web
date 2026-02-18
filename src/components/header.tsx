@@ -8,9 +8,14 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2">
           <span className="text-xl font-bold">{SITE_NAME}</span>
         </Link>
-        <p className="text-xs text-muted-foreground hidden sm:block">
-          ペット譲渡会イベント情報
-        </p>
+        <nav className="flex items-center gap-4 text-sm">
+          <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+            一覧
+          </Link>
+          <Link href="/search" className="text-muted-foreground hover:text-foreground transition-colors">
+            Web検索
+          </Link>
+        </nav>
       </div>
     </header>
   )

@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button"
 
 interface ViewToggleProps {
-  value: "list" | "map"
-  onChange: (value: "list" | "map") => void
+  value: "list" | "map" | "table"
+  onChange: (value: "list" | "map" | "table") => void
 }
 
 export function ViewToggle({ value, onChange }: ViewToggleProps) {
@@ -16,6 +16,13 @@ export function ViewToggle({ value, onChange }: ViewToggleProps) {
         onClick={() => onChange("list")}
       >
         一覧
+      </Button>
+      <Button
+        variant={value === "table" ? "default" : "outline"}
+        size="sm"
+        onClick={() => onChange("table")}
+      >
+        テーブル
       </Button>
       <Button
         variant={value === "map" ? "default" : "outline"}
