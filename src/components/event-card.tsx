@@ -31,7 +31,9 @@ export function EventCard({ event }: { event: MergedEvent }) {
         <p className="font-medium">{event.org_name}</p>
         <p className="text-muted-foreground">
           {event.prefecture}
-          {event.address ? ` ${event.address}` : ""}
+          {event.address
+            ? ` ${event.address.startsWith(event.prefecture) ? event.address.slice(event.prefecture.length).trimStart() : event.address}`
+            : ""}
         </p>
         {event.venue_name && (
           <p className="text-muted-foreground">{event.venue_name}</p>

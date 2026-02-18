@@ -119,7 +119,6 @@ export async function POST(request: NextRequest) {
     searchUrl.searchParams.set("q", searchQuery)
     searchUrl.searchParams.set("num", "5")
     searchUrl.searchParams.set("lr", "lang_ja")
-    searchUrl.searchParams.set("dateRestrict", "m3")
 
     const searchRes = await fetch(searchUrl.toString(), { next: { revalidate: 0 } })
     if (!searchRes.ok) {
