@@ -15,6 +15,9 @@ export function Header() {
           <Link href="/search" className="text-muted-foreground hover:text-foreground transition-colors">
             Web検索
           </Link>
+          <Link href="/help" className="text-muted-foreground hover:text-foreground transition-colors">
+            使い方
+          </Link>
         </nav>
       </div>
     </header>
