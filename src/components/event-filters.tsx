@@ -7,6 +7,7 @@ import { PrefectureSelect } from "./prefecture-select"
 import { AnimalTypeFilter } from "./animal-type-filter"
 import { ViewToggle } from "./view-toggle"
 import type { MergedEvent } from "@/types/event"
+import { exportToCsv } from "@/lib/csv"
 import dynamic from "next/dynamic"
 
 const EventMap = dynamic(() => import("./event-map").then((m) => m.EventMap), {
@@ -44,6 +45,12 @@ export function EventFilters({ events }: { events: MergedEvent[] }) {
         />
         <AnimalTypeFilter value={animalType} onChange={setAnimalType} />
         <ViewToggle value={view} onChange={setView} />
+        <button
+          onClick={() => exportToCsv(filtered)}
+          className="ml-auto text-sm px-3 py-2 border rounded hover:bg-muted transition-colors whitespace-nowrap"
+        >
+          CSVダウンロード
+        </button>
       </div>
 
       <p className="text-sm text-muted-foreground mb-4">
