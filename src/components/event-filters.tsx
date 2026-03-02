@@ -5,6 +5,7 @@ import { EventList } from "./event-list"
 import { EventTable } from "./event-table"
 import { PrefectureSelect } from "./prefecture-select"
 import { AnimalTypeFilter } from "./animal-type-filter"
+import { SourceFilter } from "./source-filter"
 import { ViewToggle } from "./view-toggle"
 import type { MergedEvent } from "@/types/event"
 import { exportToCsv } from "@/lib/csv"
@@ -20,6 +21,7 @@ const EventMap = dynamic(() => import("./event-map").then((m) => m.EventMap), {
 export function EventFilters({ events }: { events: MergedEvent[] }) {
   const [prefecture, setPrefecture] = useState<string>("all")
   const [animalType, setAnimalType] = useState<string>("all")
+  const [source, setSource] = useState<string>("all")
   const [view, setView] = useState<"list" | "map" | "table">("list")
 
   const filtered = useMemo(() => {
@@ -27,23 +29,33 @@ export function EventFilters({ events }: { events: MergedEvent[] }) {
       if (prefecture !== "all" && e.prefecture !== prefecture) return false
       if (animalType !== "all" && !e.animal_types?.includes(animalType))
         return false
+      if (source !== "all" && !e.sources?.includes(source)) return false
       return true
     })
-  }, [events, prefecture, animalType])
+  }, [events, prefecture, animalType, source])
 
   const availablePrefectures = useMemo(() => {
     return [...new Set(events.map((e) => e.prefecture))].sort()
   }, [events])
 
+  const availableSources = useMemo(() => {
+    return [...new Set(events.flatMap((e) => e.sources || []))].sort()
+  }, [events])
+
   return (
     <div>
-      <div className="flex flex-col sm:flex-row gap-3 mb-6">
+      <div className="flex flex-wrap gap-3 mb-6">
         <PrefectureSelect
           value={prefecture}
           onChange={setPrefecture}
           prefectures={availablePrefectures}
         />
         <AnimalTypeFilter value={animalType} onChange={setAnimalType} />
+        <SourceFilter
+          value={source}
+          onChange={setSource}
+          sources={availableSources}
+        />
         <ViewToggle value={view} onChange={setView} />
         <button
           onClick={() => exportToCsv(filtered)}
