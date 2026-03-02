@@ -1,5 +1,6 @@
 "use client"
 
+// Trigger Vercel Rebuild: 2026-03-02
 import { useState, useMemo } from "react"
 import { EventList } from "./event-list"
 import { EventTable } from "./event-table"
